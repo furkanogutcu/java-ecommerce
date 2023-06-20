@@ -118,7 +118,7 @@ public class ProductOperationServlet extends HttpServlet {
 				if(productImagePart.getSize() != 0 && productImagePart.getSubmittedFileName() != "") {
 					imagePath = uploadImage(request, productImagePart);
 					if(updatedProduct.getImage() != "\\product\\default.png") {
-						String oldImageFullPath = request.getRealPath("img") + updatedProduct.getImage();
+						String oldImageFullPath = request.getSession().getServletContext().getRealPath("img") + updatedProduct.getImage();
 						deleteImage(oldImageFullPath);
 					}					
 				}
@@ -206,7 +206,7 @@ public class ProductOperationServlet extends HttpServlet {
 
 	private String uploadImage(HttpServletRequest request, Part productImagePart)
 			throws FileNotFoundException, IOException {		
-		String appPath = request.getRealPath("img");
+		String appPath = request.getSession().getServletContext().getRealPath("img");
 		String uploadPath = File.separator + "product" + File.separator + java.util.UUID.randomUUID();
 		String fullPath = appPath + uploadPath;
 		
